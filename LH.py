@@ -83,7 +83,7 @@ def dofetch(id, key, region):
 #                 resp_Stop = client.StopInstances(req_Stop) 
 #                 print(resp_Stop.to_json_string())
                 #添加TG酱通知
-                msgContent= InstanceId+ " ：流量超出限制，即将自动关机。" + "剩余流量：" + TrafficPackageRemaining+ "GB"
+                msgContent= InstanceId+ " ：流量即将超出设置限额" + "剩余流量：" + TrafficPackageRemaining+ "GB"
                 msgUrl="https://tgbot-red.vercel.app/api?token="+ tgToken +"&message="+ msgContent
                 response= requests.get(url=msgUrl).text
                 print (response)        
