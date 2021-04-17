@@ -12,7 +12,7 @@ SecretId = os.environ["SecretId"]
 SecretKey = os.environ["SecretKey"]
 
 regions = ["ap-beijing", "ap-chengdu", "ap-guangzhou", "ap-hongkong", "ap-nanjing", "ap-shanghai", "ap-singapore", "ap-tokyo", "eu-moscow", "na-siliconvalley"]
-percent = 0.95  # 流量限额，1表示使用到100%关机，默认设置为95%
+percent = 0.8  # 流量限额，1表示使用到100%关机，默认设置为95%
 tgToken = os.environ["tgToken"]
 
 
@@ -73,15 +73,15 @@ def dofetch(id, key, region):
                           
                 
             else:
-                print(InstanceId,":","流量超出限制，自动关闭")
-                req_Stop = models.StopInstancesRequest()
-                params_Stop = {
+                print(InstanceId,":","流量超出限制，警告！！！")
+#                 req_Stop = models.StopInstancesRequest()
+#                 params_Stop = {
 
-                }
-                params_Stop.setdefault("InstanceIds",[]).append(InstanceId)
-                req_Stop.from_json_string(json.dumps(params_Stop))
-                resp_Stop = client.StopInstances(req_Stop) 
-                print(resp_Stop.to_json_string())
+#                 }
+#                 params_Stop.setdefault("InstanceIds",[]).append(InstanceId)
+#                 req_Stop.from_json_string(json.dumps(params_Stop))
+#                 resp_Stop = client.StopInstances(req_Stop) 
+#                 print(resp_Stop.to_json_string())
                 #添加TG酱通知
                 msgContent= InstanceId+ " ：流量超出限制，即将自动关机。" + "剩余流量：" + TrafficPackageRemaining+ "GB"
                 msgUrl="https://tgbot-red.vercel.app/api?token="+ tgToken +"&message="+ msgContent
